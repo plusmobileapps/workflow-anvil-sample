@@ -14,17 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.plusmobileapps.sample.workflow.episodes.EpisodesViewModel
+import androidx.lifecycle.ViewModel
 import com.plusmobileapps.sample.workflow.episodes.EpisodesWorkFlow
 import com.plusmobileapps.sample.workflow.ui.theme.SquareSampleAppTheme
 import com.squareup.workflow1.ui.ViewEnvironment
 import com.squareup.workflow1.ui.compose.WorkflowRendering
 import com.squareup.workflow1.ui.compose.renderAsState
 import javax.inject.Inject
+import javax.inject.Provider
 
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var episodesWorkFlow: EpisodesWorkFlow
+    @Inject
+    lateinit var provider: Provider<MainViewModel>
+
+    private val viewModel: MainViewModel by viewModels {
+        ViewModelFactory<MainViewModel> { provider.get() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +42,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val rendering by episodesWorkFlow.renderAsState(props = Unit, onOutput = {})
-                    WorkflowRendering(rendering = rendering, viewEnvironment = ViewEnvironment.EMPTY)
+                    val rendering by viewModel.episodesWorkFlow.renderAsState(props = Unit, onOutput = {})
+                    WorkflowRendering(
+                        rendering = rendering,
+                        viewEnvironment = ViewEnvironment.EMPTY
+                    )
                 }
             }
         }
     }
+
+    class MainViewModel @Inject constructor(val episodesWorkFlow: EpisodesWorkFlow) : ViewModel()
 }
 
 @Composable
