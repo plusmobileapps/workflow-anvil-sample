@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class EpisodesWorkers @Inject constructor(private val repository: EpisodesRepository) {
 
-    fun getEpisodes(): Worker<List<String>> = Worker.from {
+    fun getEpisodes(): Worker<List<Episode>> = Worker.from {
         repository.getEpisodes()
     }
 

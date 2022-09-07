@@ -9,10 +9,14 @@ import com.squareup.workflow1.runningWorker
 import javax.inject.Inject
 
 
-class EpisodesWorkFlow @Inject constructor(private val workers: EpisodesWorkers) : StatefulWorkflow<Unit, State, Output, EpisodesScreen>() {
+class EpisodesWorkFlow @Inject constructor(private val workers: EpisodesWorkers) :
+    StatefulWorkflow<Unit, State, Output, EpisodesScreen>() {
 
-    data class State(val isLoading: Boolean = true, val episodes: List<String> = emptyList())
-    object Output
+    data class State(val isLoading: Boolean = true, val episodes: List<Episode> = emptyList())
+    sealed class Output {
+        data class OpenEpisodeDetail(val id: Int) : Output()
+        object GoBackToCharacter : Output()
+    }
 
     override fun initialState(
         props: Unit,
@@ -33,7 +37,10 @@ class EpisodesWorkFlow @Inject constructor(private val workers: EpisodesWorkers)
             episodes = renderState.episodes,
             isLoading = renderState.isLoading,
             onEpisodeClicked = {
-                // TODO
+                context.actionSink.send(action { setOutput(Output.OpenEpisodeDetail(it.id)) })
+            },
+            onBackClicked = {
+                context.actionSink.send(action { setOutput(Output.GoBackToCharacter) })
             }
         )
     }

@@ -61,6 +61,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation "com.squareup.workflow1:workflow-ui-core-android:$workflow_version"
+    implementation "com.squareup.workflow1:workflow-ui-container-android:$workflow_version"
     implementation "com.squareup.workflow1:workflow-ui-compose:$workflow_version"
     testImplementation "com.squareup.workflow1:workflow-testing-jvm:$workflow_version"
 
@@ -73,5 +74,8 @@ dependencies {
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions.freeCompilerArgs += ["-Xopt-in=com.squareup.workflow1.ui.WorkflowUiExperimentalApi"]
+    kotlinOptions.freeCompilerArgs += [
+            "-Xopt-in=com.squareup.workflow1.ui.WorkflowUiExperimentalApi",
+            "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+    ]
 }
