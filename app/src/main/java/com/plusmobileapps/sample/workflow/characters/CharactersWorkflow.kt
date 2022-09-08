@@ -1,11 +1,12 @@
 package com.plusmobileapps.sample.workflow.characters
 
+import com.plusmobileapps.rickandmortysdk.RickAndMortySdk
+import com.plusmobileapps.rickandmortysdk.characters.CharactersStore
+import com.plusmobileapps.rickandmortysdk.characters.RickAndMortyCharacter
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.Output
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.State
-import com.squareup.workflow1.Snapshot
-import com.squareup.workflow1.StatefulWorkflow
-import com.squareup.workflow1.action
-import com.squareup.workflow1.runningWorker
+import com.squareup.workflow1.*
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class CharactersWorkflow @Inject constructor(private val workers: CharactersWorkers) :
