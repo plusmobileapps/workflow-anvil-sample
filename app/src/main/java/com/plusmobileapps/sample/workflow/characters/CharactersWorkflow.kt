@@ -1,12 +1,8 @@
 package com.plusmobileapps.sample.workflow.characters
 
-import com.plusmobileapps.rickandmortysdk.RickAndMortySdk
-import com.plusmobileapps.rickandmortysdk.characters.CharactersStore
-import com.plusmobileapps.rickandmortysdk.characters.RickAndMortyCharacter
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.Output
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.State
 import com.squareup.workflow1.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class CharactersWorkflow @Inject constructor(private val workers: CharactersWorkers) :
@@ -39,6 +35,12 @@ class CharactersWorkflow @Inject constructor(private val workers: CharactersWork
             },
             goToEpisodeClicked = {
                 context.actionSink.send(action { setOutput(Output.OpenEpisodes) })
+            },
+            onLoadMoreClicked = {
+                context.actionSink.send(action {
+                    workers.loadMoreCharacters()
+                    state = state.copy(isLoading = true)
+                })
             }
         )
     }

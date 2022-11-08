@@ -1,9 +1,7 @@
 package com.plusmobileapps.sample.workflow.di
 
-import android.content.Context
-import com.plusmobileapps.rickandmortysdk.RickAndMorty
-import com.plusmobileapps.rickandmortysdk.RickAndMortySdk
-import com.plusmobileapps.rickandmortysdk.characters.CharactersStore
+import com.plusmobileapps.rickandmorty.api.RickAndMortyApi
+import com.plusmobileapps.rickandmorty.api.RickAndMortyApiClient
 import dagger.Module
 import dagger.Provides
 
@@ -11,10 +9,5 @@ import dagger.Provides
 object RickAndMortyModule {
 
     @Provides
-    fun providesRickAndMortySdk(context: Context): RickAndMortySdk {
-        return RickAndMorty.instance
-    }
-
-    @Provides
-    fun providesCharactersStore(sdk: RickAndMortySdk): CharactersStore = sdk.charactersStore
+    fun providesRickAndMortySdk(): RickAndMortyApiClient = RickAndMortyApi.instance
 }

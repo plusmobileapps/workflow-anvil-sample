@@ -1,8 +1,6 @@
 package com.plusmobileapps.sample.workflow.characters
 
-import com.plusmobileapps.rickandmortysdk.characters.RickAndMortyCharacter
 import com.squareup.workflow1.Worker
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class CharactersWorkers @Inject constructor(private val repository: CharactersRepository) {
@@ -15,5 +13,9 @@ class CharactersWorkers @Inject constructor(private val repository: CharactersRe
         repository.getCharacters().collect { characters ->
             emit(characters)
         }
+    }
+
+    fun loadMoreCharacters() {
+        repository.loadMore()
     }
 }
