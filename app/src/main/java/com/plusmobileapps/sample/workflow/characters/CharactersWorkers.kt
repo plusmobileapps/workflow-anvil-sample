@@ -4,7 +4,18 @@ import com.squareup.workflow1.Worker
 import javax.inject.Inject
 
 class CharactersWorkers @Inject constructor(private val repository: CharactersRepository) {
-    fun getCharacters(): Worker<List<RickAndMortyCharacter>> = Worker.from {
-        repository.getCharacters()
+
+    init {
+        repository.loadMore()
+    }
+
+    fun getCharacters(): Worker<List<RickAndMortyCharacter>> = Worker.create {
+        repository.getCharacters().collect { characters ->
+            emit(characters)
+        }
+    }
+
+    fun loadMoreCharacters() {
+        repository.loadMore()
     }
 }

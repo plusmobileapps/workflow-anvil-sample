@@ -2,10 +2,7 @@ package com.plusmobileapps.sample.workflow.characters
 
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.Output
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow.State
-import com.squareup.workflow1.Snapshot
-import com.squareup.workflow1.StatefulWorkflow
-import com.squareup.workflow1.action
-import com.squareup.workflow1.runningWorker
+import com.squareup.workflow1.*
 import javax.inject.Inject
 
 class CharactersWorkflow @Inject constructor(private val workers: CharactersWorkers) :
@@ -38,6 +35,12 @@ class CharactersWorkflow @Inject constructor(private val workers: CharactersWork
             },
             goToEpisodeClicked = {
                 context.actionSink.send(action { setOutput(Output.OpenEpisodes) })
+            },
+            onLoadMoreClicked = {
+                context.actionSink.send(action {
+                    workers.loadMoreCharacters()
+                    state = state.copy(isLoading = true)
+                })
             }
         )
     }

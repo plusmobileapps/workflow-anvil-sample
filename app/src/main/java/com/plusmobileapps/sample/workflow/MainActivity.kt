@@ -63,7 +63,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val lifecycle = LocalLifecycleOwner.current
-
                     AndroidView(factory = { WorkflowLayout(it) }) {
                         it.take(
                             lifecycle = lifecycle.lifecycle,
