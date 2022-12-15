@@ -11,7 +11,6 @@ class CharactersWorkflow @Inject constructor(private val workers: CharactersWork
     data class State(val characters: List<RickAndMortyCharacter>, val isLoading: Boolean)
     sealed class Output {
         data class OpenCharacterDetail(val id: Int) : Output()
-        object OpenEpisodes : Output()
     }
 
     override fun initialState(props: Unit, snapshot: Snapshot?) = State(
@@ -30,11 +29,8 @@ class CharactersWorkflow @Inject constructor(private val workers: CharactersWork
         return CharactersScreen(
             characters = renderState.characters,
             isLoading = renderState.isLoading,
-            onCharacterClicked = {
-                context.actionSink.send(action { setOutput(Output.OpenCharacterDetail(it.id)) })
-            },
-            goToEpisodeClicked = {
-                context.actionSink.send(action { setOutput(Output.OpenEpisodes) })
+            onCharacterClicked = context.eventHandler { character ->
+                setOutput(Output.OpenCharacterDetail(character.id))
             },
             onLoadMoreClicked = {
                 context.actionSink.send(action {
