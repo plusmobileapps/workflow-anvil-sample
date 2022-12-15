@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.squareup.workflow1.ui.Screen
 import com.squareup.workflow1.ui.compose.composeScreenViewFactory
@@ -19,7 +20,16 @@ data class EpisodesScreen(
 ) : Screen
 
 val EpisodesBinding = composeScreenViewFactory<EpisodesScreen> { rendering, environment ->
+    EpisodesListView(rendering = rendering)
+}
+
+@Composable
+fun EpisodesListView(
+    modifier: Modifier = Modifier,
+    rendering: EpisodesScreen,
+) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             MediumTopAppBar(
                 title = { Text(text = "Episodes") },

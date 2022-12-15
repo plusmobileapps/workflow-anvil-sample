@@ -1,6 +1,9 @@
 package com.plusmobileapps.sample.workflow.root
 
+import android.os.Parcelable
+import com.plusmobileapps.sample.workflow.bottomnav.BottomNavWorkflow
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow
+import com.plusmobileapps.sample.workflow.characters.search.CharacterSearchWorkflow
 import com.plusmobileapps.sample.workflow.episodes.EpisodesWorkFlow
 import com.plusmobileapps.sample.workflow.root.RootWorkflow.State
 import com.squareup.workflow1.Snapshot
@@ -10,18 +13,22 @@ import com.squareup.workflow1.renderChild
 import com.squareup.workflow1.ui.Screen
 import com.squareup.workflow1.ui.container.BackStackScreen
 import com.squareup.workflow1.ui.container.toBackStackScreen
+import com.squareup.workflow1.ui.toSnapshot
+import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 class RootWorkflow @Inject constructor(
-    private val episodesWorkflow: EpisodesWorkFlow,
-    private val charactersWorkflow: CharactersWorkflow
+    private val bottomNavWorkflow: BottomNavWorkflow,
+    private val characterSearchWorkflow: CharacterSearchWorkflow,
 ) : StatefulWorkflow<Unit, State, Nothing, BackStackScreen<*>>() {
-    sealed class State {
-        object Episodes : State()
-        object Characters : State()
+
+    @Parcelize
+    sealed class State : Parcelable {
+        object BottomNav : State()
+        data class CharacterDetail(val id: Int) : State()
     }
 
-    override fun initialState(props: Unit, snapshot: Snapshot?): State = State.Characters
+    override fun initialState(props: Unit, snapshot: Snapshot?): State = State.BottomNav
 
     override fun render(
         renderProps: Unit,
@@ -30,34 +37,36 @@ class RootWorkflow @Inject constructor(
     ): BackStackScreen<*> {
         val backstackScreens = mutableListOf<Screen>()
         backstackScreens += context.renderChild(
-            charactersWorkflow,
-            handler = this::onCharactersOutput
+            bottomNavWorkflow,
+            handler = this::onBottomNavOutput
         )
+
         when (renderState) {
-            State.Characters -> {/* always added to stack */ }
-            State.Episodes -> {
-                backstackScreens += context.renderChild(episodesWorkflow, handler = this::onEpisodesOutput)
+            State.BottomNav -> Unit
+            is State.CharacterDetail -> {
+                backstackScreens += context.renderChild(
+                    child = characterSearchWorkflow,
+                    props = renderState.id,
+                    handler = this::onCharacterDetailOutput,
+                )
             }
         }
 
         return backstackScreens.toBackStackScreen()
     }
 
-    override fun snapshotState(state: State): Snapshot? = null
+    override fun snapshotState(state: State): Snapshot? = state.toSnapshot()
 
-    private fun onEpisodesOutput(output: EpisodesWorkFlow.Output) = action {
+    private fun onBottomNavOutput(output: BottomNavWorkflow.Output) = action {
         state = when (output) {
-            is EpisodesWorkFlow.Output.OpenEpisodeDetail -> TODO()
-            EpisodesWorkFlow.Output.GoBackToCharacter -> State.Characters
+            is BottomNavWorkflow.Output.OpenCharacterDetail -> State.CharacterDetail(output.characterId)
         }
     }
 
-    private fun onCharactersOutput(output: CharactersWorkflow.Output) = action {
+    private fun onCharacterDetailOutput(output: CharacterSearchWorkflow.Output) = action {
         state = when (output) {
-            is CharactersWorkflow.Output.OpenCharacterDetail -> TODO()
-            CharactersWorkflow.Output.OpenEpisodes -> State.Episodes
+            CharacterSearchWorkflow.Output.Finished -> State.BottomNav
         }
     }
-
 
 }

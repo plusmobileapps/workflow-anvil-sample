@@ -20,7 +20,9 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.plusmobileapps.sample.workflow.bottomnav.BottomNavBinding
 import com.plusmobileapps.sample.workflow.characters.CharactersBinding
+import com.plusmobileapps.sample.workflow.characters.search.CharacterSearchBinding
 import com.plusmobileapps.sample.workflow.episodes.EpisodesBinding
 import com.plusmobileapps.sample.workflow.ext.assistedViewModel
 import com.plusmobileapps.sample.workflow.root.RootWorkflow
@@ -41,8 +43,10 @@ import javax.inject.Provider
 
 val viewRegistry = ViewRegistry(
     BackStackContainer,
+    BottomNavBinding,
     EpisodesBinding,
-    CharactersBinding
+    CharactersBinding,
+    CharacterSearchBinding,
 )
 
 class MainActivity : ComponentActivity() {
@@ -92,22 +96,5 @@ class MainActivity : ComponentActivity() {
         interface Factory {
             fun create(savedStateHandle: SavedStateHandle): MainViewModel
         }
-    }
-}
-
-@Composable
-fun EpisodesList(episodes: List<String>) {
-    LazyColumn {
-        items(episodes) {
-            Text(text = it)
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SquareSampleAppTheme {
-        EpisodesList(listOf("Rickmurai Jack", "Pickle Rick"))
     }
 }

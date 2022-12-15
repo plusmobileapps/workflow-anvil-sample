@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.squareup.workflow1.ui.Screen
 import com.squareup.workflow1.ui.compose.composeScreenViewFactory
@@ -16,20 +17,20 @@ data class CharactersScreen(
     val characters: List<RickAndMortyCharacter> = emptyList(),
     val isLoading: Boolean = false,
     val onCharacterClicked: (RickAndMortyCharacter) -> Unit = {},
-    val goToEpisodeClicked: () -> Unit,
     val onLoadMoreClicked: () -> Unit
 ) : Screen
 
 val CharactersBinding = composeScreenViewFactory<CharactersScreen> { rendering, environment ->
+    CharactersListView(rendering = rendering)
+}
+
+@Composable
+fun CharactersListView(modifier: Modifier = Modifier, rendering: CharactersScreen) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             MediumTopAppBar(
                 title = { Text(text = "Characters") },
-                actions = {
-                    IconButton(onClick = { rendering.goToEpisodeClicked() }) {
-                        Icon(Icons.Default.Person, contentDescription = "Go to characters")
-                    }
-                },
             )
         },
     ) { paddingValues ->
