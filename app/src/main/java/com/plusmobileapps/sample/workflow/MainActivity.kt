@@ -26,11 +26,7 @@ import com.plusmobileapps.sample.workflow.ext.assistedViewModel
 import com.plusmobileapps.sample.workflow.root.RootWorkflow
 import com.plusmobileapps.sample.workflow.ui.theme.SquareSampleAppTheme
 import com.squareup.workflow1.ui.*
-import com.squareup.workflow1.ui.backstack.BackStackContainer
-import com.squareup.workflow1.ui.compose.WorkflowRendering
-import com.squareup.workflow1.ui.compose.renderAsState
-import com.squareup.workflow1.ui.container.BackStackScreen
-import com.squareup.workflow1.ui.container.withRegistry
+import com.squareup.workflow1.ui.navigation.BackStackContainer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -40,7 +36,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 val viewRegistry = ViewRegistry(
-    BackStackContainer,
+//    BackStackContainer,
     EpisodesBinding,
     CharactersBinding
 )
@@ -67,7 +63,7 @@ class MainActivity : ComponentActivity() {
                         it.take(
                             lifecycle = lifecycle.lifecycle,
                             renderings = viewModel.renderings.map { screen ->
-                                asScreen(screen).withRegistry(viewRegistry)
+                                screen.withRegistry(viewRegistry)
                             }
                         )
                     }
@@ -80,13 +76,11 @@ class MainActivity : ComponentActivity() {
         @Assisted val savedStateHandle: SavedStateHandle,
         val rootWorkflow: RootWorkflow
     ) : ViewModel() {
-        val renderings: StateFlow<Screen> by lazy {
-            renderWorkflowIn(
-                workflow = rootWorkflow,
-                scope = viewModelScope,
-                savedStateHandle = savedStateHandle
-            )
-        }
+        val renderings: StateFlow<Screen> = renderWorkflowIn(
+            workflow = rootWorkflow,
+            scope = viewModelScope,
+            savedStateHandle = savedStateHandle
+        )
 
         @AssistedFactory
         interface Factory {

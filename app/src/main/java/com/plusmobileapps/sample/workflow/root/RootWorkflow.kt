@@ -8,8 +8,8 @@ import com.squareup.workflow1.StatefulWorkflow
 import com.squareup.workflow1.action
 import com.squareup.workflow1.renderChild
 import com.squareup.workflow1.ui.Screen
-import com.squareup.workflow1.ui.container.BackStackScreen
-import com.squareup.workflow1.ui.container.toBackStackScreen
+import com.squareup.workflow1.ui.navigation.BackStackScreen
+import com.squareup.workflow1.ui.navigation.toBackStackScreen
 import javax.inject.Inject
 
 class RootWorkflow @Inject constructor(

@@ -6,12 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    namespace 'com.plusmobileapps.sample.workflow'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.plusmobileapps.sample.workflow"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -28,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_19
+        targetCompatibility JavaVersion.VERSION_19
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '19'
     }
     buildFeatures {
         compose true
@@ -50,19 +51,18 @@ android {
 dependencies {
 
     implementation "com.plusmobileapps:rick-and-morty-api-android:0.2"
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.0.0'
+    implementation 'androidx.compose.material3:material3:1.1.2'
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.6.1'
-    implementation "androidx.fragment:fragment-ktx:1.5.4"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation "com.squareup.workflow1:workflow-ui-core-android:$workflow_version"
-    implementation "com.squareup.workflow1:workflow-ui-container-android:$workflow_version"
     implementation "com.squareup.workflow1:workflow-ui-compose:$workflow_version"
     testImplementation "com.squareup.workflow1:workflow-testing-jvm:$workflow_version"
 

@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModel
 inline fun <reified T : ViewModel> ComponentActivity.assistedViewModel(
     crossinline viewModelProducer: (SavedStateHandle) -> T
 ): Lazy<T> = viewModels {
-    object : AbstractSavedStateViewModelFactory(this, intent.extras) {
+    object : AbstractSavedStateViewModelFactory(this@assistedViewModel, intent.extras) {
         override fun <T : ViewModel> create(
             key: String,
             modelClass: Class<T>,
