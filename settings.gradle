@@ -11,6 +11,10 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+
+    versionCatalogs {
+    }
 }
 rootProject.name = "Square Sample App"
 include ':app'
+include 'features:characters'
