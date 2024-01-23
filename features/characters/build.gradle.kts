@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.plusmobileapps.sample.workflow.characters"
-    compileSdk = 34
+    compileSdk = project.properties["android-compilesdk"].toString().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = project.properties["android-minsdk"].toString().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

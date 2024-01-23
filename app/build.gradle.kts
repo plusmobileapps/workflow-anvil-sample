@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.plusmobileapps.sample.workflow"
-    compileSdk = 34
+    compileSdk = project.properties["android-compilesdk"].toString().toInt()
 
     defaultConfig {
         applicationId = "com.plusmobileapps.sample.workflow"
-        minSdk = 21
-        targetSdk = 34
+        minSdk = project.properties["android-minsdk"].toString().toInt()
+        targetSdk = project.properties["android-targetsdk"].toString().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -23,10 +23,13 @@ android {
     }
 
     buildTypes {
-//        release {
-//            minifyEnabled = false
-//            proguardFiles = getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_19
