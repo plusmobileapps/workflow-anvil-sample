@@ -18,3 +18,6 @@ dependencyResolutionManagement {
 rootProject.name = "Square Sample App"
 include ':app'
 include 'features:characters'
+include ':di'
+include ':rickandmorty-api'
+include ':util:coroutines'

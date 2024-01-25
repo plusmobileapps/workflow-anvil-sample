@@ -1,6 +1,7 @@
 [versions]
 activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
+coroutines = "1.7.2"
 core-ktx = "1.12.0"
 espresso-core = "3.5.1"
 fragment-ktx = "1.6.2"
@@ -15,6 +16,11 @@ rick-and-morty-api-android = "0.2"
 workflow = "1.12.1-beta07"
 dagger = "2.50"
 anvil = "2.4.9"
+agp = "8.2.0"
+kotlin1922 = "1.9.22"
+appcompat = "1.6.1"
+material = "1.11.0"
+org-jetbrains-kotlin-jvm = "1.9.22"
 
 
 [libraries]
@@ -26,6 +32,8 @@ compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling-preview", 
 compose-tooling-debug = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose-ui" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-ui" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 dagger-core = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
@@ -37,6 +45,8 @@ rick-and-morty-api-android = { module = "com.plusmobileapps:rick-and-morty-api-a
 workflow-core-android = { group = "com.squareup.workflow1", name = "workflow-ui-core-android", version.ref = "workflow" }
 workflow-compose = { group = "com.squareup.workflow1", name = "workflow-ui-compose", version.ref = "workflow" }
 workflow-testing = { group = "com.squareup.workflow1", name = "workflow-testing-jvm", version.ref = "workflow" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]
@@ -44,3 +54,6 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "11.4.2" }
 ksp = { id = "com.google.devtools.ksp", version = "1.9.10-1.0.13" }
 mockmp = { id = "org.kodein.mock.mockmp", version = "1.15.0" }
 anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin1922" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
