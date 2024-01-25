@@ -17,6 +17,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.plusmobileapps.sample.workflow.characters.CharacterDetailScreen
 import com.plusmobileapps.sample.workflow.characters.CharactersBinding
 import com.plusmobileapps.sample.workflow.episodes.EpisodesBinding
 import com.plusmobileapps.sample.workflow.ext.assistedViewModel
@@ -33,7 +34,8 @@ import javax.inject.Inject
 val viewRegistry = ViewRegistry(
 //    BackStackContainer,
     EpisodesBinding,
-    CharactersBinding
+    CharactersBinding,
+    CharacterDetailScreen.viewFactory
 )
 
 class MainActivity : ComponentActivity() {

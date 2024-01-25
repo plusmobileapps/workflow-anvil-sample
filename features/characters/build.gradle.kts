@@ -46,6 +46,8 @@ dependencies {
     implementation(project(":rickandmorty-api"))
     implementation(project(":util:coroutines"))
 
+    implementation(libs.dagger.core)
+    kapt(libs.dagger.compiler)
     implementation(libs.workflow.core.android)
     implementation(libs.workflow.compose)
     testImplementation(libs.workflow.testing)

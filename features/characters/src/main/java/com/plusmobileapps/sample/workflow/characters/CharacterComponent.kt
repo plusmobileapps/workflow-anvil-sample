@@ -5,6 +5,7 @@ import com.plusmobileapps.sample.workflow.di.CharacterScope
 import com.plusmobileapps.sample.workflow.di.SingleIn
 import com.squareup.anvil.annotations.ContributesSubcomponent
 import com.squareup.anvil.annotations.ContributesTo
+import dagger.BindsInstance
 
 @SingleIn(CharacterScope::class)
 @ContributesSubcomponent(
@@ -15,7 +16,7 @@ interface CharacterComponent {
 
     @ContributesSubcomponent.Factory
     interface Factory {
-        fun create(): CharacterComponent
+        fun create(@BindsInstance characterId: Int): CharacterComponent
     }
 
     @ContributesTo(AppScope::class)
