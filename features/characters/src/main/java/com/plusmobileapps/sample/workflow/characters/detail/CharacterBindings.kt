@@ -1,4 +1,4 @@
-package com.plusmobileapps.sample.workflow.characters
+package com.plusmobileapps.sample.workflow.characters.detail
 
 import com.plusmobileapps.sample.workflow.di.CharacterScope
 import com.squareup.anvil.annotations.ContributesTo

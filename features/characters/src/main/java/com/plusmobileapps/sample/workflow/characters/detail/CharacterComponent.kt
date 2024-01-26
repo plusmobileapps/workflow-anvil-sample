@@ -1,4 +1,4 @@
-package com.plusmobileapps.sample.workflow.characters
+package com.plusmobileapps.sample.workflow.characters.detail
 
 import com.plusmobileapps.sample.workflow.di.AppScope
 import com.plusmobileapps.sample.workflow.di.CharacterScope
@@ -13,6 +13,8 @@ import dagger.BindsInstance
     parentScope = AppScope::class,
 )
 interface CharacterComponent {
+
+    fun characterDetailWorkflow(): CharacterDetailChildWorkflow
 
     @ContributesSubcomponent.Factory
     interface Factory {

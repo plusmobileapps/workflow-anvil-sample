@@ -1,6 +1,6 @@
 package com.plusmobileapps.sample.workflow.root
 
-import com.plusmobileapps.sample.workflow.characters.CharacterDetailWorkflow
+import com.plusmobileapps.sample.workflow.characters.detail.CharacterDetailWorkflow
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow
 import com.plusmobileapps.sample.workflow.episodes.EpisodesWorkFlow
 import com.plusmobileapps.sample.workflow.root.RootWorkflow.State
