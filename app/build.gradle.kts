@@ -50,7 +50,9 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":di"))
+    implementation(project(":features:characters"))
+    implementation(project(":util:coroutines"))
     implementation(libs.rick.and.morty.api.android)
     implementation(libs.core.ktx)
     implementation(libs.compose.ui)

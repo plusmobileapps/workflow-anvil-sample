@@ -3,7 +3,7 @@ package com.plusmobileapps.sample.workflow.characters
 import android.util.Log
 import com.plusmobileapps.rickandmorty.api.RickAndMortyApiClient
 import com.plusmobileapps.sample.workflow.di.AppScope
-import com.plusmobileapps.sample.workflow.util.Dispatchers
+import com.plusmobileapps.util.coroutines.Dispatchers
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

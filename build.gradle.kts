@@ -6,6 +6,7 @@ plugins {
     id("com.android.library") version libs.versions.android.gradle.get() apply false
     id("org.jetbrains.kotlin.android") version libs.versions.kotlin.get() apply false
     id("com.squareup.anvil") version libs.versions.anvil.get() apply false
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
 }
 
 tasks.register("clean", Delete::class) {

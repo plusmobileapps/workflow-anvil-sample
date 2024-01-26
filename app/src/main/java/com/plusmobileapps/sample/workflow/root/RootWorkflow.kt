@@ -1,5 +1,6 @@
 package com.plusmobileapps.sample.workflow.root
 
+import com.plusmobileapps.sample.workflow.characters.detail.CharacterDetailWorkflow
 import com.plusmobileapps.sample.workflow.characters.CharactersWorkflow
 import com.plusmobileapps.sample.workflow.episodes.EpisodesWorkFlow
 import com.plusmobileapps.sample.workflow.root.RootWorkflow.State
@@ -14,9 +15,12 @@ import javax.inject.Inject
 
 class RootWorkflow @Inject constructor(
     private val episodesWorkflow: EpisodesWorkFlow,
-    private val charactersWorkflow: CharactersWorkflow
+    private val charactersWorkflow: CharactersWorkflow,
+    private val characterDetailWorkflow: CharacterDetailWorkflow
 ) : StatefulWorkflow<Unit, State, Nothing, BackStackScreen<*>>() {
     sealed class State {
+
+        data class CharacterDetail(val id: Int) : State()
         object Episodes : State()
         object Characters : State()
     }
@@ -34,9 +38,24 @@ class RootWorkflow @Inject constructor(
             handler = this::onCharactersOutput
         )
         when (renderState) {
-            State.Characters -> {/* always added to stack */ }
+            State.Characters -> {/* always added to stack */
+            }
+
             State.Episodes -> {
-                backstackScreens += context.renderChild(episodesWorkflow, handler = this::onEpisodesOutput)
+                backstackScreens += context.renderChild(
+                    episodesWorkflow,
+                    handler = this::onEpisodesOutput
+                )
+            }
+
+            is State.CharacterDetail -> {
+                backstackScreens += context.renderChild(
+                    child = characterDetailWorkflow,
+                    props = renderState.id,
+                    handler = {
+                        action { state = State.Characters }
+                    }
+                )
             }
         }
 
@@ -54,7 +73,7 @@ class RootWorkflow @Inject constructor(
 
     private fun onCharactersOutput(output: CharactersWorkflow.Output) = action {
         state = when (output) {
-            is CharactersWorkflow.Output.OpenCharacterDetail -> TODO()
+            is CharactersWorkflow.Output.OpenCharacterDetail -> State.CharacterDetail(output.id)
             CharactersWorkflow.Output.OpenEpisodes -> State.Episodes
         }
     }

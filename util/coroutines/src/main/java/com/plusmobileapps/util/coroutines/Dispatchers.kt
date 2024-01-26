@@ -1,4 +1,4 @@
-package com.plusmobileapps.sample.workflow.util
+package com.plusmobileapps.util.coroutines
 
 import com.plusmobileapps.sample.workflow.di.AppScope
 import com.squareup.anvil.annotations.ContributesBinding

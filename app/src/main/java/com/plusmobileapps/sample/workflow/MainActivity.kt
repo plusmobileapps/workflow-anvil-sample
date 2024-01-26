@@ -3,7 +3,6 @@ package com.plusmobileapps.sample.workflow
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,34 +10,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.plusmobileapps.sample.workflow.characters.detail.CharacterDetailScreen
 import com.plusmobileapps.sample.workflow.characters.CharactersBinding
 import com.plusmobileapps.sample.workflow.episodes.EpisodesBinding
 import com.plusmobileapps.sample.workflow.ext.assistedViewModel
 import com.plusmobileapps.sample.workflow.root.RootWorkflow
 import com.plusmobileapps.sample.workflow.ui.theme.SquareSampleAppTheme
 import com.squareup.workflow1.ui.*
-import com.squareup.workflow1.ui.navigation.BackStackContainer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Provider
 
 val viewRegistry = ViewRegistry(
 //    BackStackContainer,
     EpisodesBinding,
-    CharactersBinding
+    CharactersBinding,
+    CharacterDetailScreen.viewFactory
 )
 
 class MainActivity : ComponentActivity() {
